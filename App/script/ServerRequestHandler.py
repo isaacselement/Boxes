@@ -20,8 +20,7 @@ class ServerRequestHandler:
         request_method = environ['REQUEST_METHOD']
         #print '#### Path: ' + request_path + ' | Method: ' + request_method
 
-        status = '200 OK'
-        response_body = ''
+        response_body = '{\"status\": 0}'
 
         if request_method.lower() == 'get':
             if request_path == '/service/developer':
@@ -30,20 +29,16 @@ class ServerRequestHandler:
         if request_method.lower() == 'post':
             if request_path == '/service/uploadDeveloper':
                 # threadPool.add_task(self.handleData, environ)
-
-                status = self.handleData(environ)
-                response_body = fileHandler.getIndexTemplate()
-                #response_body = response_body % reponse_data
+                self.handleData(environ)
 
             if request_path == '/service/upload':
                 # threadPool.add_task(self.handleData, environ)
-                response_body = '{\"result\": 1}'
-                statuscode = self.handleData(environ)
-                #if statuscode.startswith('200'):
-                    #response_body = '{\"result\": 1}'
+                self.handleData(environ)
+                response_body = '{\"status\": \"1\",\"action\":\"/service/upload\"}'
 
         response_headers = [('Content-Type', 'text/html'), ('Content-Length', str(len(response_body)))]
-        start_response(status, response_headers)
+        start_response('200 OK', response_headers)
+
         return [response_body]
 
 
@@ -57,5 +52,3 @@ class ServerRequestHandler:
 
         fileHandler.saveFileFromFormData(fileData, file_name, file_absolute_path)
         print '######## a file upload absolute path : ' + file_absolute_path + '  file name : ' + file_name
-
-        return '200 OK'
