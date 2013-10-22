@@ -7,3 +7,5 @@ git clone https://github.com/isaacselement/Boxes.git "$HOME$BoxesPath"
 
 export PYTHONPATH="$HOME$BoxesPath"
 
+
+python "$PYTHONPATH"App/script/application.py
