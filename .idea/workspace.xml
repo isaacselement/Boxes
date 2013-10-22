@@ -36,19 +36,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FileHandler.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FileHandler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/script/FileHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="36" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.5430862">
+            <state line="8" column="13" selection-start="219" selection-end="219" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerRequestHandler.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ServerRequestHandler.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="30" selection-start="1831" selection-end="1831" vertical-scroll-proportion="0.0">
+            <state line="12" column="7" selection-start="212" selection-end="212" vertical-scroll-proportion="0.36072144">
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -498,19 +498,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
+    <entry file="file://$PROJECT_DIR$/App/script/FileHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="30" selection-start="1831" selection-end="1831" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
+        <state line="8" column="13" selection-start="219" selection-end="219" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/script/FileHandler.py">
+    <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="36" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.5430862">
-          <folding />
+        <state line="12" column="7" selection-start="212" selection-end="212" vertical-scroll-proportion="0.36072144">
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
