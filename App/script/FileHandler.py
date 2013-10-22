@@ -20,9 +20,14 @@ class FileHandler:
         self.saveFile(fileData, file_name, file_path)
 
     def saveFile(self, file_data, file_name, file_path):
-        if not os.path.exists(file_path):
-            os.makedirs(file_path)
         file_path_name = file_path + file_name
+
+        name = os.path.basename(file_path_name)
+        path = file_path_name.replace(name, "")
+
+        if not os.path.exists(path):
+            os.makedirs(path)
+
 
         file_upload = open(file_path_name, 'w')
         file_upload.write(file_data)
