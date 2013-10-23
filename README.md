@@ -1,4 +1,7 @@
 
+
+## Setting Up
+
 BoxesPath=/Workspace/python_projects/Boxes/
 
 
@@ -9,3 +12,10 @@ export PYTHONPATH="$HOME$BoxesPath"
 
 
 python "$PYTHONPATH"App/script/application.py
+
+
+
+
+## Run It
+
+BoxesPath=/Workspace/python_projects/Boxes/ && export PYTHONPATH="$HOME$BoxesPath" && python "$PYTHONPATH"App/script/application.py
