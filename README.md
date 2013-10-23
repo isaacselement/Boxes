@@ -1,21 +1,21 @@
 
 
-## Setting Up
+## First , Setting Up
 
-BoxesPath=/Workspace/python_projects/Boxes/
-
-
-git clone https://github.com/isaacselement/Boxes.git "$HOME$BoxesPath"
+    BoxesPath=/Workspace/python_projects/Boxes/
 
 
-export PYTHONPATH="$HOME$BoxesPath"
+    git clone https://github.com/isaacselement/Boxes.git "$HOME$BoxesPath"
 
 
-python "$PYTHONPATH"App/script/application.py
+    export PYTHONPATH="$HOME$BoxesPath"
+
+
+    python "$PYTHONPATH"App/script/application.py
 
 
 
 
-## Run It
+## Second , Run It
 
-BoxesPath=/Workspace/python_projects/Boxes/ && export PYTHONPATH="$HOME$BoxesPath" && python "$PYTHONPATH"App/script/application.py
+    BoxesPath=/Workspace/python_projects/Boxes/ && export PYTHONPATH="$HOME$BoxesPath" && python "$PYTHONPATH"App/script/application.py
