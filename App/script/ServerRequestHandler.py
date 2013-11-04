@@ -1,6 +1,8 @@
 import threading
 
 import os
+import json
+import string
 import ThreadPool
 import FormHandler
 import FileHandler
@@ -11,7 +13,7 @@ fileHandler = FileHandler.FileHandler()
 threadPool = ThreadPool.ThreadPool(5)
 
 absolutePath = os.path.expanduser("~")
-file_absolute_path = absolutePath + "/Workspace/resources/boxes/"
+file_absolute_path = absolutePath + "/Workspaces/resources/boxes/"
 
 class ServerRequestHandler:
     def handleRequest(self, environ, start_response):
@@ -22,19 +24,69 @@ class ServerRequestHandler:
 
         response_body = '{\"status\": 0}'
 
+
+
+
         if request_method.lower() == 'get':
-            if request_path == '/service/developer':
+            if request_path == '/service/upload':
                 response_body = fileHandler.getIndexTemplate()
 
+            elif request_path == '/service/download':
+                query_string = environ['QUERY_STRING']
+                files_directory = file_absolute_path + query_string;
+                try:
+                    list = os.listdir(files_directory)
+                except os.error:
+                    response_body = "No permission to list directory";
+
+                response_body = json.dumps(list)
+
+
+
+
+
         if request_method.lower() == 'post':
-            if request_path == '/service/uploadDeveloper':
-                # threadPool.add_task(self.handleData, environ)
-                self.handleData(environ)
 
             if request_path == '/service/upload':
                 # threadPool.add_task(self.handleData, environ)
                 self.handleData(environ)
                 response_body = '{\"status\": \"1\",\"action\":\"/service/upload\"}'
+
+            elif request_path == '/service/download':
+                formDatas = formHandler.getFormDatas(environ)
+                formDatasList = formDatas.split('&')
+                listLen = len(formDatasList)
+                path = ''
+                for index in range(0, listLen):
+                    element = formDatasList[index]
+                    values = element.split('=')
+                    if values[0] == "PATH":
+                        path = values[1]
+                        break
+
+                head, tail = os.path.split(path)
+                isFile = bool(tail.strip())
+                if not isFile:
+                    files_directory = file_absolute_path + path
+                    try:
+                        list = os.listdir(files_directory)
+                    except os.error:
+                        response_body = "No permission to list directory";
+
+                    filesList = json.dumps(list)
+                    response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"objects\":'+filesList+'}'
+                else:
+                    fileNamePath = file_absolute_path + path
+                    status = '200 OK'
+                    response_headers = [('Content-type', 'text/plain'), ('Content-length', str(os.path.getsize(fileNamePath)))]
+                    start_response(status, response_headers)
+
+                    filelike = file(fileNamePath, 'r')
+                    if 'wsgi.file_wrapper' in environ:
+                        return environ['wsgi.file_wrapper'](filelike)
+                    else:
+                        return iter(lambda: filelike.read(500), '')
+
 
         response_headers = [('Content-Type', 'text/html'), ('Content-Length', str(len(response_body)))]
         start_response('200 OK', response_headers)

@@ -36,7 +36,7 @@ class FormHandler:
 
         return result, parameters
 
-    def getFormData(self, environ):
+    def getFormDatas(self, environ):
 
         body = ''
         try:
@@ -58,8 +58,7 @@ class FormHandler:
         return body
 
     def getFormDataAsList(self, environ):
-        formDatas = self.getFormData(environ)
-        #print formDatas
+        formDatas = self.getFormDatas(environ)
         boundary_content = self.getFormBoundary(environ)
         formDatasList = formDatas.split(boundary_content)
         return formDatasList
