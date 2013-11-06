@@ -2,7 +2,6 @@ import threading
 
 import os
 import json
-import string
 import ThreadPool
 import FormHandler
 import FileHandler
@@ -23,21 +22,18 @@ class ServerRequestHandler:
         #print '#### Path: ' + request_path + ' | Method: ' + request_method
 
         response_body = '{\"status\": 0}'
-
+        response_length = ''
 
 
 
         if request_method.lower() == 'get':
-            if request_path == '/service/upload':
-                response_body = fileHandler.getIndexTemplate()
-
-            elif request_path == '/service/download':
+            if request_path == '/service/download':
                 query_string = environ['QUERY_STRING']
-                files_directory = file_absolute_path + query_string;
+                files_directory = file_absolute_path + query_string
                 try:
                     list = os.listdir(files_directory)
                 except os.error:
-                    response_body = "No permission to list directory";
+                    response_body = "No permission to list directory"
 
                 response_body = json.dumps(list)
 
@@ -71,27 +67,22 @@ class ServerRequestHandler:
                     try:
                         list = os.listdir(files_directory)
                     except os.error:
-                        response_body = "No permission to list directory";
+                        response_body = '{\"status\": \"0\",\"action\":\"/service/download\",\"description\":' + 'No permission to list directory' + '}'
 
                     filesList = json.dumps(list)
-                    response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"objects\":'+filesList+'}'
+                    response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"objects\":' + filesList + '}'
                 else:
                     fileNamePath = file_absolute_path + path
-                    status = '200 OK'
-                    response_headers = [('Content-type', 'text/plain'), ('Content-length', str(os.path.getsize(fileNamePath)))]
-                    start_response(status, response_headers)
-
+                    response_length = str(os.path.getsize(fileNamePath))
                     filelike = file(fileNamePath, 'r')
-                    if 'wsgi.file_wrapper' in environ:
-                        return environ['wsgi.file_wrapper'](filelike)
-                    else:
-                        return iter(lambda: filelike.read(500), '')
+                    response_body = environ['wsgi.file_wrapper'](filelike)
 
-
-        response_headers = [('Content-Type', 'text/html'), ('Content-Length', str(len(response_body)))]
+        if not response_length:
+            response_length = str(len(response_body))
+        response_headers = [('Content-Type', 'text/html'), ('Content-Length',response_length)]
         start_response('200 OK', response_headers)
 
-        return [response_body]
+        return response_body
 
 
     def handleData(self, environ):

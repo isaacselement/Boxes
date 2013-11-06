@@ -5,16 +5,14 @@ import errno
 
 currentPath = os.path.realpath(__file__)
 parentPath = os.path.abspath(os.path.join(currentPath, os.pardir))
-htmlFile = parentPath + '/../template' +'/index.html'
-#htmlFile = '/pointserver/apps/boxizer/App/template' +'/index.html'
 
 class FileHandler:
-    def getIndexTemplate(self):
+    # def getIndexTemplate(self):
             #currentPath = os.getcwd()
             #currentPath = os.path.realpath(__file__)
             #parentPath = os.path.abspath(os.path.join(currentPath, os.pardir))
             #htmlFilePath = parentPath + '/template'
-            return open(htmlFile).read()
+            # return open(htmlFile).read()
 
     def saveFileFromFormData(self, fileData, file_name, file_path):
         self.saveFile(fileData, file_name, file_path)
