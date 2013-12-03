@@ -48,6 +48,14 @@ class ServerRequestHandler:
                 self.handleData(environ)
                 response_body = '{\"status\": \"1\",\"action\":\"/service/upload\"}'
 
+            elif request_path == '/service/move':
+                formDatas = formHandler.getFormDatas(environ)
+                formDatasList = formDatas.split('&')
+                for element in formDatasList:
+                    values = element.split('=')
+                    os.system('ln -s ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
+
+
             elif request_path == '/service/download':
                 formDatas = formHandler.getFormDatas(environ)
                 formDatasList = formDatas.split('&')
@@ -59,7 +67,6 @@ class ServerRequestHandler:
                     if values[0] == "PATH":
                         path = values[1]
                         break
-
                 head, tail = os.path.split(path)
                 isFile = bool(tail.strip())
                 if not isFile:
