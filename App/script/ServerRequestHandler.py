@@ -53,7 +53,7 @@ class ServerRequestHandler:
                 formDatasList = formDatas.split('&')
                 for element in formDatasList:
                     values = element.split('=')
-                    os.system('ln -s ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
+                    os.system('ln ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
 
 
             elif request_path == '/service/download':

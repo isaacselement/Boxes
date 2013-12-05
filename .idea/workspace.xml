@@ -48,7 +48,7 @@
       <file leaf-file-name="ServerRequestHandler.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="53" selection-start="1035" selection-end="1035" vertical-scroll-proportion="0.6">
+            <state line="40" column="0" selection-start="1104" selection-end="1104" vertical-scroll-proportion="0.8142857">
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -374,7 +374,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18614718" sideWeight="0.43249428" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5675057" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5675057" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951945" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34668192" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -538,7 +538,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="53" selection-start="1035" selection-end="1035" vertical-scroll-proportion="0.6">
+        <state line="40" column="0" selection-start="1104" selection-end="1104" vertical-scroll-proportion="0.8142857">
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
