@@ -2,6 +2,7 @@ import threading
 
 import os
 import json
+import re
 import ThreadPool
 import FormHandler
 import FileHandler
@@ -53,8 +54,10 @@ class ServerRequestHandler:
                 formDatasList = formDatas.split('&')
                 for element in formDatasList:
                     values = element.split('=')
-                    os.system('ln ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
-
+                    os.system('ln -s ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
+                    #print "EXE: ln "+ file_absolute_path+values[0] + ' ' + file_absolute_path+values[1]
+                lastObject = formDatasList[-1]
+                lastValues = lastObject.split('=')
 
             elif request_path == '/service/download':
                 formDatas = formHandler.getFormDatas(environ)
@@ -80,9 +83,38 @@ class ServerRequestHandler:
                     response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"objects\":' + filesList + '}'
                 else:
                     fileNamePath = file_absolute_path + path
-                    response_length = str(os.path.getsize(fileNamePath))
-                    filelike = file(fileNamePath, 'r')
-                    response_body = environ['wsgi.file_wrapper'](filelike)
+                    try:
+                        file_size = os.path.getsize(fileNamePath)
+                        response_length = str(os.path.getsize(fileNamePath))
+                        filelike = file(fileNamePath, 'r')
+                        response_body = environ['wsgi.file_wrapper'](filelike)
+                    except os.error:
+                        #file do not exists
+                        #try to access a folder by path name
+                        foldername = ''
+                        print 'there is a missing thumb :' + path
+                        pattern = r'(.*)/*thumbnails/(.+)\.jpg'
+                        folder_name_match = re.search(pattern,path)
+                        if folder_name_match:
+                            foldername = folder_name_match.group(2)
+                            prefolder = folder_name_match.group(1)
+                            #try to grab a thumbnail from this folder
+                            folder_thumb_path = file_absolute_path+ prefolder+'/'+foldername+'/thumbnails'
+                            file_list = os.listdir(folder_thumb_path)
+                            #print file_list
+                            for single_file in file_list:
+                                #print single_file
+                                if single_file[-4:] == '.jpg':
+                                    #found a thumbnail already
+                                    the_thumb = folder_thumb_path+'/'+single_file
+                                    #make the link
+                                    command = 'ln -s '+the_thumb+ ' ' +fileNamePath
+                                    print command
+                                    os.system(command)
+                                    break
+                        else:
+                            print "not matching"
+
 
         if not response_length:
             response_length = str(len(response_body))
