@@ -71,3 +71,14 @@ class FileHandler:
 
     def isDirExists(self, path):
         return os.path.isdir(path) and os.path.exists(path)
+
+    def handleData(self,formHandler,filepath, environ):
+        #print '#### --> handleData thread id is : ' + str(threading.current_thread().ident)
+        formDatasList = formHandler.getFormDataAsList(environ)
+        fileData, parameters = formHandler.parseFormDataList(formDatasList)
+        file_name = formHandler.getFileName(formDatasList[1])
+        print '#### --> has  parsed form data successfully'
+
+
+        self.saveFileFromFormData(fileData, file_name, filepath)
+        print '######## a file upload absolute path : ' + filepath + '  file name : ' + file_name

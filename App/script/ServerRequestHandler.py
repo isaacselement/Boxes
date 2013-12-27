@@ -15,106 +15,135 @@ threadPool = ThreadPool.ThreadPool(5)
 absolutePath = os.path.expanduser("~")
 file_absolute_path = absolutePath + "/Workspaces/resources/boxes/"
 
+class m_get_handler:
+    def __init__(self):
+        self.func_table = {}
+
+    def register_method(self,funcDict):
+        self.func_table.update(funcDict)
+
+    def handle_download(self,environ):
+        response_body = ''
+        query_string = environ['QUERY_STRING']
+        files_directory = file_absolute_path + query_string
+        try:
+            dirlist = os.listdir(files_directory)
+        except os.error:
+             response_body = "No permission to list directory"
+
+        response_body = json.dumps(list)
+        return response_body,None
+
+
+    def handle(self,path,environ):
+        pass
+
+class m_post_handler:
+
+    def handle_upload(self,environ):
+        fileHandler.handleData(formHandler,file_absolute_path,environ)
+        return '{\"status\": \"1\",\"action\":\"/service/upload\"}',None
+
+    def handle_download(self,environ):
+        response_length=''
+        response_body = ''
+        formDatas = formHandler.getFormDatas(environ)
+        formDatasList = formDatas.split('&')
+        listLen = len(formDatasList)
+        path = ''
+        for index in range(0, listLen):
+            element = formDatasList[index]
+            values = element.split('=')
+            if values[0] == "PATH":
+                path = values[1]
+                break
+        head, tail = os.path.split(path)
+        isFile = bool(tail.strip())
+        if not isFile:
+            files_directory = file_absolute_path + path
+            try:
+                list = os.listdir(files_directory)
+            except os.error:
+                response_body = '{\"status\": \"0\",\"action\":\"/service/download\",\"description\":' + 'No permission to list directory' + '}'
+
+            filesList = json.dumps(list)
+            response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"objects\":' + filesList + '}'
+        else:
+            fileNamePath = file_absolute_path + path
+            try:
+                file_size = os.path.getsize(fileNamePath)
+                response_length = str(os.path.getsize(fileNamePath))
+                filelike = file(fileNamePath, 'r')
+                response_body = environ['wsgi.file_wrapper'](filelike)
+            except os.error:
+                #file do not exists
+                #try to access a folder by path name
+                foldername = ''
+                print 'there is a missing thumb :' + path
+                pattern = r'(.*)/*thumbnails/(.+)\.jpg'
+                folder_name_match = re.search(pattern,path)
+                if folder_name_match:
+                    foldername = folder_name_match.group(2)
+                    prefolder = folder_name_match.group(1)
+                    #try to grab a thumbnail from this folder
+                    folder_thumb_path = file_absolute_path+ prefolder+'/'+foldername+'/thumbnails'
+                    file_list = os.listdir(folder_thumb_path)                        #print file_list
+                    for single_file in file_list:
+                        #print single_file
+                        if single_file[-4:] == '.jpg':
+                            #found a thumbnail already
+                            the_thumb = folder_thumb_path+'/'+single_file
+                            #make the link
+                            command = 'ln -s '+the_thumb+ ' ' +fileNamePath
+                            print command
+                            os.system(command)
+                            break
+                else:
+                    print "not matching"
+        return response_body,response_length
+
+    def handle_move(self,environ):
+        formDatas = formHandler.getFormDatas(environ)
+        formDatasList = formDatas.split('&')
+        for element in formDatasList:
+            values = element.split('=')
+            os.system('ln -s ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
+            #print "EXE: ln "+ file_absolute_path+values[0] + ' ' + file_absolute_path+values[1]
+        lastObject = formDatasList[-1]
+        lastValues = lastObject.split('=')
+        return '{\"status\": \"1\",\"action\":\"/service/move\"}',None
+
+    def __init__(self):
+        self.func_table = {"/service/upload":self.handle_upload,
+                           "/service/download":self.handle_download,
+                           "/service/move":self.handle_move}
+
+    def register_method(self,funcDict):
+        self.func_table.update(funcDict)
+
+    def handle(self,path,environ):
+        return (self.func_table[path])(environ)
+
 class ServerRequestHandler:
+    def get_handler_by_type(self, type):
+        if type == 'get':
+            return m_get_handler()
+        elif type == 'post':
+            return m_post_handler()
+
     def handleRequest(self, environ, start_response):
 
         request_path = environ['PATH_INFO']
-        request_method = environ['REQUEST_METHOD']
+        request_type = environ['REQUEST_METHOD']
+        request_type = request_type.lower()
         #print '#### Path: ' + request_path + ' | Method: ' + request_method
 
         response_body = '{\"status\": 0}'
         response_length = ''
 
 
-
-        if request_method.lower() == 'get':
-            if request_path == '/service/download':
-                query_string = environ['QUERY_STRING']
-                files_directory = file_absolute_path + query_string
-                try:
-                    list = os.listdir(files_directory)
-                except os.error:
-                    response_body = "No permission to list directory"
-
-                response_body = json.dumps(list)
-
-
-
-
-
-        if request_method.lower() == 'post':
-
-            if request_path == '/service/upload':
-                # threadPool.add_task(self.handleData, environ)
-                self.handleData(environ)
-                response_body = '{\"status\": \"1\",\"action\":\"/service/upload\"}'
-
-            elif request_path == '/service/move':
-                formDatas = formHandler.getFormDatas(environ)
-                formDatasList = formDatas.split('&')
-                for element in formDatasList:
-                    values = element.split('=')
-                    os.system('ln -s ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
-                    #print "EXE: ln "+ file_absolute_path+values[0] + ' ' + file_absolute_path+values[1]
-                lastObject = formDatasList[-1]
-                lastValues = lastObject.split('=')
-
-            elif request_path == '/service/download':
-                formDatas = formHandler.getFormDatas(environ)
-                formDatasList = formDatas.split('&')
-                listLen = len(formDatasList)
-                path = ''
-                for index in range(0, listLen):
-                    element = formDatasList[index]
-                    values = element.split('=')
-                    if values[0] == "PATH":
-                        path = values[1]
-                        break
-                head, tail = os.path.split(path)
-                isFile = bool(tail.strip())
-                if not isFile:
-                    files_directory = file_absolute_path + path
-                    try:
-                        list = os.listdir(files_directory)
-                    except os.error:
-                        response_body = '{\"status\": \"0\",\"action\":\"/service/download\",\"description\":' + 'No permission to list directory' + '}'
-
-                    filesList = json.dumps(list)
-                    response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"objects\":' + filesList + '}'
-                else:
-                    fileNamePath = file_absolute_path + path
-                    try:
-                        file_size = os.path.getsize(fileNamePath)
-                        response_length = str(os.path.getsize(fileNamePath))
-                        filelike = file(fileNamePath, 'r')
-                        response_body = environ['wsgi.file_wrapper'](filelike)
-                    except os.error:
-                        #file do not exists
-                        #try to access a folder by path name
-                        foldername = ''
-                        print 'there is a missing thumb :' + path
-                        pattern = r'(.*)/*thumbnails/(.+)\.jpg'
-                        folder_name_match = re.search(pattern,path)
-                        if folder_name_match:
-                            foldername = folder_name_match.group(2)
-                            prefolder = folder_name_match.group(1)
-                            #try to grab a thumbnail from this folder
-                            folder_thumb_path = file_absolute_path+ prefolder+'/'+foldername+'/thumbnails'
-                            file_list = os.listdir(folder_thumb_path)
-                            #print file_list
-                            for single_file in file_list:
-                                #print single_file
-                                if single_file[-4:] == '.jpg':
-                                    #found a thumbnail already
-                                    the_thumb = folder_thumb_path+'/'+single_file
-                                    #make the link
-                                    command = 'ln -s '+the_thumb+ ' ' +fileNamePath
-                                    print command
-                                    os.system(command)
-                                    break
-                        else:
-                            print "not matching"
-
+        handle_method = self.get_handler_by_type(request_type)
+        response_body,response_length = handle_method.handle(request_path,environ)
 
         if not response_length:
             response_length = str(len(response_body))
