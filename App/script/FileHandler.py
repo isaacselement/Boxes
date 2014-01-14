@@ -2,6 +2,8 @@ __author__ = 'ios'
 
 import os
 import errno
+import re
+import time
 
 currentPath = os.path.realpath(__file__)
 parentPath = os.path.abspath(os.path.join(currentPath, os.pardir))
@@ -15,6 +17,11 @@ class FileHandler:
             # return open(htmlFile).read()
 
     def saveFileFromFormData(self, fileData, file_name, file_path):
+        configpattern = r'.*config.txt'
+        config_match = re.search(configpattern,file_name)
+        if config_match:
+            currentDate =  time.strftime('%Y-%m-%d',time.localtime(time.time()))
+
         self.saveFile(fileData, file_name, file_path)
 
     def saveFile(self, file_data, file_name, file_path):
@@ -82,3 +89,4 @@ class FileHandler:
 
         self.saveFileFromFormData(fileData, file_name, filepath)
         print '######## a file upload absolute path : ' + filepath + '  file name : ' + file_name
+        return filepath + file_name

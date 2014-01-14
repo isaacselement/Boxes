@@ -15,6 +15,10 @@ threadPool = ThreadPool.ThreadPool(5)
 absolutePath = os.path.expanduser("~")
 file_absolute_path = absolutePath + "/Workspaces/resources/boxes/"
 
+
+
+
+
 class m_get_handler:
     def __init__(self):
         self.func_table = {}
@@ -38,11 +42,15 @@ class m_get_handler:
     def handle(self,path,environ):
         pass
 
+
+
+
+
 class m_post_handler:
 
     def handle_upload(self,environ):
-        fileHandler.handleData(formHandler,file_absolute_path,environ)
-        return '{\"status\": \"1\",\"action\":\"/service/upload\"}',None
+        path = fileHandler.handleData(formHandler,file_absolute_path,environ)
+        return '{\"status\": \"1\",\"action\":\"'+ path + '\"}',None
 
     def handle_download(self,environ):
         response_length=''
@@ -113,10 +121,44 @@ class m_post_handler:
         lastValues = lastObject.split('=')
         return '{\"status\": \"1\",\"action\":\"/service/move\"}',None
 
+    def fetch_config(self,environ):
+        response_body = ''
+        response_length = ''
+        formDatas = formHandler.getFormDatas(environ)
+        formDatasList = formDatas.split('&')
+        listLen = len(formDatasList)
+        path = ''
+        for index in range(0,listLen):
+            element = formDatasList[index]
+            values = element.split('=')
+            if values[0] == 'PATH':
+                path = values[1]
+                break
+        head,tail = os.path.split(path)
+        isFile = bool(tail.strip())
+        if isFile:
+            filepath = file_absolute_path + head+ '/config/' + tail
+            print filepath
+            if os.path.isfile(filepath):
+                print filepath + ' is a file'
+                file_size = os.path.getsize(filepath)
+            else:
+                print 'use default file'
+                filepath = file_absolute_path + head + '/config/' + 'config.txt'
+
+            file_size = os.path.getsize(filepath)
+            response_length = str(os.path.getsize(filepath))
+            filedata = file(filepath,'r')
+            response_body = environ['wsgi.file_wrapper'](filedata)
+
+        return response_body,response_length
+
+
     def __init__(self):
         self.func_table = {"/service/upload":self.handle_upload,
                            "/service/download":self.handle_download,
-                           "/service/move":self.handle_move}
+                           "/service/move":self.handle_move,
+                           "/service/fetchconfig":self.fetch_config}
 
     def register_method(self,funcDict):
         self.func_table.update(funcDict)
@@ -124,7 +166,13 @@ class m_post_handler:
     def handle(self,path,environ):
         return (self.func_table[path])(environ)
 
+
+
+
+
 class ServerRequestHandler:
+    #create object at the first place, call when needed is better then this.
+    #needs improve
     def get_handler_by_type(self, type):
         if type == 'get':
             return m_get_handler()
@@ -152,14 +200,3 @@ class ServerRequestHandler:
 
         return response_body
 
-
-    def handleData(self, environ):
-        print '#### --> handleData thread id is : ' + str(threading.current_thread().ident)
-        formDatasList = formHandler.getFormDataAsList(environ)
-        fileData, parameters = formHandler.parseFormDataList(formDatasList)
-        file_name = formHandler.getFileName(formDatasList[1])
-        print '#### --> has  parsed form data successfully'
-
-
-        fileHandler.saveFileFromFormData(fileData, file_name, file_absolute_path)
-        print '######## a file upload absolute path : ' + file_absolute_path + '  file name : ' + file_name
