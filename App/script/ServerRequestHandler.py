@@ -13,7 +13,7 @@ fileHandler = FileHandler.FileHandler()
 threadPool = ThreadPool.ThreadPool(5)
 
 absolutePath = os.path.expanduser("~")
-file_absolute_path = absolutePath + "/Workspaces/resources/boxes/"
+file_absolute_path = absolutePath + "/Workspaces/Resources/Boxes/"
 
 
 
