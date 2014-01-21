@@ -153,12 +153,43 @@ class m_post_handler:
 
         return response_body,response_length
 
+    def get_track_file(self, environ):
+        response_body = ''
+        response_length = ''
+        formDatas = formHandler.getFormDatas(environ)
+        formDatasList = formDatas.split('&')
+        listLen = len(formDatasList)
+        path = ''
+
+        for index in range(0,listLen):
+            element = formDatasList[index]
+            values = element.split('=')
+            if values[0] == 'PATH':
+                path = values[1]
+                break
+
+        head,tail = os.path.split(path)
+        isFile = bool(tail.strip())
+
+        if isFile:
+            filePath = file_absolute_path + head + '/'+tail
+            print filePath
+            if os.path.isfile(filePath):
+                file_size = os.path.getsize(filePath)
+                response_length = str(file_size)
+                filedata = file(filePath,'r')
+                response_body = environ['wsgi.file_wrapper'](filedata)
+            else:
+                print "file not exists"
+        return response_body,response_length
+
 
     def __init__(self):
         self.func_table = {"/service/upload":self.handle_upload,
                            "/service/download":self.handle_download,
                            "/service/move":self.handle_move,
-                           "/service/fetchconfig":self.fetch_config}
+                           "/service/fetchconfig":self.fetch_config,
+                           "/service/getTrackFile":self.get_track_file}
 
     def register_method(self,funcDict):
         self.func_table.update(funcDict)
