@@ -1,7 +1,7 @@
 __author__ = 'ios'
 
 import re
-
+import urllib
 class FormHandler:
     def parseFormDataList(self, formDatasList):
         parameters = {}
@@ -76,8 +76,13 @@ class FormHandler:
 
     def getFileName(self, fileFormDatas):
         file_name_list = re.findall(r'Content-Disposition.*name="file"; filename="(.*)"', fileFormDatas)
+        print 'this is form: '+ fileFormDatas
+        print 'end of form'
         file_name = file_name_list[0]
-        return file_name
+        try:
+            file_name = urllib.unquote(file_name)
+        finally:
+            return file_name
 
     def getItemName(self, itemFormDatas):
         item_name_list = re.findall(r'.*name="(.*)"', itemFormDatas)
