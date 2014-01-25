@@ -6,6 +6,7 @@ import re
 import ThreadPool
 import FormHandler
 import FileHandler
+import urllib
 
 formHandler = FormHandler.FormHandler()
 fileHandler = FileHandler.FileHandler()
@@ -40,7 +41,7 @@ class m_get_handler:
 
 
     def handle(self,path,environ):
-        pass
+        print 'get====='
 
 
 
@@ -71,13 +72,15 @@ class m_post_handler:
             files_directory = file_absolute_path + path
             try:
                 list = os.listdir(files_directory)
+                print list
             except os.error:
                 response_body = '{\"status\": \"0\",\"action\":\"/service/download\",\"description\":' + 'No permission to list directory' + '}'
 
             filesList = json.dumps(list)
-            response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"objects\":' + filesList + '}'
+            response_body = '{\"status\": \"1\",\"action\":\"/service/download\",\"results\":' + filesList + '}'
         else:
             fileNamePath = file_absolute_path + path
+            print fileNamePath
             try:
                 file_size = os.path.getsize(fileNamePath)
                 response_length = str(os.path.getsize(fileNamePath))
@@ -102,21 +105,42 @@ class m_post_handler:
                             #found a thumbnail already
                             the_thumb = folder_thumb_path+'/'+single_file
                             #make the link
-                            command = 'ln -s '+the_thumb+ ' ' +fileNamePath
+                            command = 'ln -s '+self.qoute_space(the_thumb)+ ' ' +self.qoute_space(fileNamePath)
                             print command
                             os.system(command)
                             break
                 else:
-                    print "not matching"
+                    print "may be we encounter a chinese char url"
+                    #try to resolve a url with chinese character inside
+                    #Iterate through the path, try to decode everything
+                    path_apart = path.split('/')
+                    new_apart = []
+                    for part in path_apart:
+                        try:
+                            part = urllib.unquote(part)
+                        finally:
+                            new_apart.append(part)
+                    fix_url = '/'.join(new_apart)
+                    fix_path = file_absolute_path+fix_url
+                    response_length = str(os.path.getsize(fix_path))
+                    filelike = file(fix_path, 'r')
+                    response_body = environ['wsgi.file_wrapper'](filelike)
+
+
+
         return response_body,response_length
+
+    def qoute_space(self,s):
+        return s.replace(' ',r'\ ')
 
     def handle_move(self,environ):
         formDatas = formHandler.getFormDatas(environ)
         formDatasList = formDatas.split('&')
+        print formDatas
         for element in formDatasList:
             values = element.split('=')
-            os.system('ln -s ' + file_absolute_path+values[0] + ' ' + file_absolute_path+values[1])
-            #print "EXE: ln "+ file_absolute_path+values[0] + ' ' + file_absolute_path+values[1]
+            os.system('ln -s ' + file_absolute_path+self.qoute_space(values[0]) + ' ' + file_absolute_path+self.qoute_space(values[1]))
+            print "EXE: ln "+ file_absolute_path+values[0] + ' ' + file_absolute_path+values[1]
         lastObject = formDatasList[-1]
         lastValues = lastObject.split('=')
         return '{\"status\": \"1\",\"action\":\"/service/move\"}',None
