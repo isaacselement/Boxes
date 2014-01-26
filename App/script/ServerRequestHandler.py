@@ -136,7 +136,7 @@ class m_post_handler:
     def handle_move(self,environ):
         formDatas = formHandler.getFormDatas(environ)
         formDatasList = formDatas.split('&')
-        print formDatas
+        #print formDatas
         for element in formDatasList:
             values = element.split('=')
             os.system('ln -s ' + file_absolute_path+self.qoute_space(values[0]) + ' ' + file_absolute_path+self.qoute_space(values[1]))
