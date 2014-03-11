@@ -84,9 +84,7 @@ class FileHandler:
         #print '#### --> handleData thread id is : ' + str(threading.current_thread().ident)
         formDatasList = formHandler.getFormDataAsList(environ)
         fileData, parameters = formHandler.parseFormDataList(formDatasList)
-        print 'form list'
-        print formDatasList
-        print 'form list end'
+
         file_name = formHandler.getFileName(formDatasList[1])
         print '#### --> has  parsed form data successfully'
 

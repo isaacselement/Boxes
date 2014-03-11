@@ -17,6 +17,10 @@
     <file path="/Html.py" changelist="9b8a54fc-72e9-4130-aa03-66c124f31426" time="1369970862911" ignored="false" />
     <file path="/index.html" changelist="9b8a54fc-72e9-4130-aa03-66c124f31426" time="1371541548664" ignored="false" />
     <file path="/application.py" changelist="9b8a54fc-72e9-4130-aa03-66c124f31426" time="1379922602412" ignored="false" />
+    <file path="$PROJECT_DIR$/../wsgiFileServer/boxrouter.py" changelist="9b8a54fc-72e9-4130-aa03-66c124f31426" time="1393571992474" ignored="false" />
+    <file path="/boxrouter.py" changelist="9b8a54fc-72e9-4130-aa03-66c124f31426" time="1393571992789" ignored="false" />
+    <file path="$PROJECT_DIR$/../wsgiFileServer/newapptest.py" changelist="9b8a54fc-72e9-4130-aa03-66c124f31426" time="1393572780747" ignored="false" />
+    <file path="$PROJECT_DIR$/../wsgiFileServer/boxlib.py" changelist="9b8a54fc-72e9-4130-aa03-66c124f31426" time="1393572810709" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,11 +40,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FileHandler.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FileHandler.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/App/script/FileHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="12" selection-start="2947" selection-end="2947" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="46" column="12" selection-start="1466" selection-end="1466" vertical-scroll-proportion="0.07210402">
+              <folding>
+                <element signature="e#20#29#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,16 +54,25 @@
       <file leaf-file-name="ServerRequestHandler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="9" selection-start="4979" selection-end="4979" vertical-scroll-proportion="-75.0">
+            <state line="52" column="0" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FormHandler.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="handlers.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///usr/local/Python-2.7.5/lib/python2.7/wsgiref/handlers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="84" column="0" selection-start="2886" selection-end="2886" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FormHandler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/script/FormHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="39" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.34306568">
+            <state line="60" column="46" selection-start="1609" selection-end="1609" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -66,7 +81,7 @@
       <file leaf-file-name="application.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/script/application.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="155" selection-end="155" vertical-scroll-proportion="0.0">
+            <state line="11" column="0" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -97,15 +112,15 @@
         <option value="$PROJECT_DIR$/App/script/ThreadPool.py" />
         <option value="$PROJECT_DIR$/App/script/application.py" />
         <option value="$PROJECT_DIR$/App/template/index.html" />
+        <option value="$PROJECT_DIR$/App/script/ServerRequestHandler.py" />
         <option value="$PROJECT_DIR$/App/script/FormHandler.py" />
         <option value="$PROJECT_DIR$/App/script/FileHandler.py" />
-        <option value="$PROJECT_DIR$/App/script/ServerRequestHandler.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="10" />
-    <option name="y" value="36" />
+    <option name="x" value="22" />
+    <option name="y" value="22" />
     <option name="width" value="1894" />
     <option name="height" value="994" />
   </component>
@@ -211,14 +226,14 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="preferences.keymap" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/untitled folder" />
+    <property name="recentsLimit" value="5" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../wsgiFileServer" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -373,15 +388,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="36" width="1894" height="994" extended-state="0" />
+    <frame x="22" y="22" width="1894" height="994" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951945" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1904762" sideWeight="0.43249428" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5675057" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1969697" sideWeight="0.5856164" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41438356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951945" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34668192" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -458,13 +473,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="53" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="832" column="14" selection-start="28069" selection-end="28083" vertical-scroll-proportion="0.6038136" />
@@ -505,11 +513,6 @@
         <state line="223" column="0" selection-start="7712" selection-end="7712" vertical-scroll-proportion="0.5140562" />
       </provider>
     </entry>
-    <entry file="file:///usr/local/Python-2.7.5/lib/python2.7/wsgiref/handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="2959" selection-end="2959" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Python-2.7.5/lib/python2.7/wsgiref/simple_server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="0" selection-start="1090" selection-end="1090" vertical-scroll-proportion="0.0" />
@@ -520,31 +523,45 @@
         <state line="14" column="0" selection-start="310" selection-end="310" vertical-scroll-proportion="0.1" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/script/application.py">
+    <entry file="file://$PROJECT_DIR$/App/script/FormHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="155" selection-end="155" vertical-scroll-proportion="0.0">
+        <state line="60" column="46" selection-start="1609" selection-end="1609" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/script/FileHandler.py">
+    <entry file="file:///usr/local/Python-2.7.5/lib/python2.7/wsgiref/handlers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="12" selection-start="2947" selection-end="2947" vertical-scroll-proportion="0.0">
+        <state line="84" column="0" selection-start="2886" selection-end="2886" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/script/application.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/App/script/ServerRequestHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="9" selection-start="4979" selection-end="4979" vertical-scroll-proportion="-75.0">
+        <state line="52" column="0" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/script/FormHandler.py">
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm20/python_stubs/110213607/__builtin__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="39" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.34306568">
-          <folding />
+        <state line="454" column="4" selection-start="13622" selection-end="13622" vertical-scroll-proportion="0.33195877" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/script/FileHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="12" selection-start="1466" selection-end="1466" vertical-scroll-proportion="0.07210402">
+          <folding>
+            <element signature="e#20#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

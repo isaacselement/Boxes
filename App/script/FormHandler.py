@@ -76,8 +76,6 @@ class FormHandler:
 
     def getFileName(self, fileFormDatas):
         file_name_list = re.findall(r'Content-Disposition.*name="file"; filename="(.*)"', fileFormDatas)
-        print 'this is form: '+ fileFormDatas
-        print 'end of form'
         file_name = file_name_list[0]
         try:
             file_name = urllib.unquote(file_name)

@@ -18,7 +18,10 @@
     
     python "$PYTHONPATH"App/script/application.py
 
-    For short :
+    
+## For short :
     BoxesPath=/Workspace/python_projects/Boxes/ \ 
     && export PYTHONPATH="$HOME$BoxesPath" \ 
     && python "$PYTHONPATH"App/script/application.py
+    
+    or just run ./startServer.sh
